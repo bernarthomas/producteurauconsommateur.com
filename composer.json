@@ -8,6 +8,7 @@
         "composer/package-versions-deprecated": "1.11.99.1",
         "doctrine/annotations": "^1.0",
         "doctrine/doctrine-bundle": "^2.2",
+        "doctrine/doctrine-fixtures-bundle": "^3.4",
         "doctrine/doctrine-migrations-bundle": "^3.0",
         "doctrine/orm": "^2.7",
         "phpdocumentor/reflection-docblock": "^5.2",
@@ -33,6 +34,7 @@
         "symfony/string": "5.1.*",
         "symfony/translation": "5.1.*",
         "symfony/twig-bundle": "^5.1",
+        "symfony/uid": "5.1.*",
         "symfony/validator": "5.1.*",
         "symfony/web-link": "5.1.*",
         "symfony/yaml": "5.1.*",
@@ -76,6 +78,18 @@
         "symfony/polyfill-php56": "*"
     },
     "scripts": {
+        "prepare-test": [
+            "bin/console d:d:d --if-exists --force --env=test",
+            "bin/console d:d:c --env=test",
+            "bin/console d:s:u -f --env=test",
+            "bin/console d:f:l -n --env=test"
+        ],
+        "prepare-dev": [
+            "bin/console d:d:d --if-exists --force --env=dev",
+            "bin/console d:d:c --env=dev",
+            "bin/console d:s:u -f --env=dev",
+            "bin/console d:f:l -n --env=dev"
+        ],
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
