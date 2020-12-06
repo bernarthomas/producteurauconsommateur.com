@@ -37,11 +37,13 @@
         "symfony/uid": "5.1.*",
         "symfony/validator": "5.1.*",
         "symfony/web-link": "5.1.*",
+        "symfony/webpack-encore-bundle": "^1.7",
         "symfony/yaml": "5.1.*",
         "twig/extra-bundle": "^2.12|^3.0",
         "twig/twig": "^2.12|^3.0"
     },
     "require-dev": {
+        "squizlabs/php_codesniffer": "^3.5",
         "symfony/browser-kit": "^5.1",
         "symfony/css-selector": "^5.1",
         "symfony/debug-bundle": "^5.1",
@@ -79,13 +81,11 @@
     },
     "scripts": {
         "prepare-test": [
-            "bin/console d:d:d --if-exists --force --env=test",
             "bin/console d:d:c --env=test",
             "bin/console d:s:u -f --env=test",
             "bin/console d:f:l -n --env=test"
         ],
         "prepare-dev": [
-            "bin/console d:d:d --if-exists --force --env=dev",
             "bin/console d:d:c --env=dev",
             "bin/console d:s:u -f --env=dev",
             "bin/console d:f:l -n --env=dev"

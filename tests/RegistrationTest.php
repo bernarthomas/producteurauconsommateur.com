@@ -24,7 +24,7 @@ class RegistrationTest extends WebTestCase
         $client = static::createClient();
         /** @var RouterInterface $router */
         $router = $client->getContainer()->get('router');
-        $crawler = $client->request(Request::METHOD_GET, $router->generate('registration', ['role' => $role]));
+        $crawler = $client->request(Request::METHOD_GET, $router->generate('security_registration', ['role' => $role]));
         $form = $crawler->filter("form[name=registration]")->form([
             "registration[email]" => random_int ( 1 , 100000000 ) . "@email.com",
             "registration[plainPassword]" => "password",

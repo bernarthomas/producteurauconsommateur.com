@@ -26,6 +26,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Uid\Uuid;
 
 /**
@@ -43,7 +44,7 @@ class SecurityController extends AbstractController
     /**
      * Enregistrement d'un Customer ou d'un Producer
      *
-     * @Route("/registration/{role}", name="registration")
+     * @Route("/registration/{role}", name="security_registration")
      *
      * @param string                       $role                customer ou producer
      * @param Request                      $request             Request
@@ -52,8 +53,12 @@ class SecurityController extends AbstractController
      *
      * @return Response
      */
-    public function registration(string $role, Request $request, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $userPasswordEncoder): Response
-    {
+    public function registration(
+        string $role,
+        Request $request,
+        EntityManagerInterface $entityManager,
+        UserPasswordEncoderInterface $userPasswordEncoder
+    ): Response {
         $user = Producer::ROLE === $role ? new Producer() : new Customer();
         $user->setId(Uuid::v4());
         $form = $this->createForm(RegistrationType::class, $user)
@@ -77,5 +82,29 @@ class SecurityController extends AbstractController
             'ui/security/registration.html.twig',
             ['form' => $form->createView()]
         );
+    }
+
+    /**
+     * Connection
+     *
+     * @Route("/login", name="security_login")
+     *
+     * @param AuthenticationUtils $authenticationUtils $utilitaire qui fournit des methodes ad hoc
+     *
+     * @return Response
+     */
+    public function login(AuthenticationUtils $authenticationUtils): Response
+    {
+        return $this->render('ui/security/login.html.twig', [
+            'last_username' => $authenticationUtils->getLastUsername(),
+            'error' => $authenticationUtils->getLastAuthenticationError()
+        ]);
+    }
+
+    /**
+     * @Route("/logout", name="security_logout")
+     */
+    public function logout(): void
+    {
     }
 }
