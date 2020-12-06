@@ -45,6 +45,6 @@ jobs:
           bin/console doctrine:schema:update --force
           bin/console doctrine:fixtures:load -n
       - name: Run functional tests
-        run: GOOGLE_MAP_API_KEY=${{ secrets.GOOGLE_MAP_API_KEY }} php vendor/bin/simple-phpunit
+        run: GOOGLE_MAP_API_KEY=${{ secrets.GOOGLE_MAP_API_KEY }} vendor/bin/simple-phpunit
       - name: Analyze coding style
-        run: php vendor/bin/phpcs
+        run: phpcs
