@@ -51,9 +51,9 @@ jobs:
           GOOGLE_MAP_API_KEY=${{ secrets.GOOGLE_MAP_API_KEY }} npm run dev
       - name: Prepare database
         run: |
-          php bin/console doctrine:database:create
-          php bin/console doctrine:schema:update --force
-          php bin/console doctrine:fixtures:load -n
+          bin/console doctrine:database:create
+          bin/console doctrine:schema:update --force
+          bin/console doctrine:fixtures:load -n
         env:
           # The hostname used to communicate with the PostgreSQL service container
           POSTGRES_HOST: postgres
