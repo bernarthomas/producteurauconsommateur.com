@@ -4,6 +4,16 @@ jobs:
   functionnal-tests:
     name: Functional tests
     runs-on: ${{ matrix.operating-system }}
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     strategy:
       fail-fast: false
       matrix:
@@ -44,6 +54,9 @@ jobs:
           php bin/console doctrine:database:create
           php bin/console doctrine:schema:update --force
           php bin/console doctrine:fixtures:load -n
+        env:
+          - POSTGRES_HOST: postgres
+          - POSTGRES_PORT: 5432
       - name: Run functional tests
         run: GOOGLE_MAP_API_KEY=${{ secrets.GOOGLE_MAP_API_KEY }} php vendor/bin/simple-phpunit
       - name: Analyze coding style
