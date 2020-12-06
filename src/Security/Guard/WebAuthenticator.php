@@ -37,9 +37,7 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
 use Symfony\Component\Security\Guard\AuthenticatorInterface;
 use Symfony\Component\Security\Guard\PasswordAuthenticatedInterface;
-use Symfony\Component\Security\Guard\Token\GuardTokenInterface;
 use Symfony\Component\Security\Http\EntryPoint\AuthenticationEntryPointInterface;
-use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
 /**
  * Class WebAuthenticator
@@ -51,7 +49,10 @@ use Symfony\Component\Security\Http\Util\TargetPathTrait;
  * @license  http://www.gnu.org/copyleft/gpl.html GNU General Public License
  * @link     http://producteurauconsommateur.com/
  */
-class WebAuthenticator extends AbstractGuardAuthenticator implements PasswordAuthenticatedInterface, AuthenticationEntryPointInterface, AuthenticatorInterface
+class WebAuthenticator extends AbstractGuardAuthenticator implements
+    PasswordAuthenticatedInterface,
+    AuthenticationEntryPointInterface,
+    AuthenticatorInterface
 {
     /**
      * Route de login
@@ -95,8 +96,12 @@ class WebAuthenticator extends AbstractGuardAuthenticator implements PasswordAut
      * @param CsrfTokenManagerInterface $csrfTokenManager   Gestionnaire de token CSRF
      * @param UserPasswordEncoderInterface $passwordEncoder Utilitaire mot de passe
      */
-    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        UrlGeneratorInterface $urlGenerator,
+        CsrfTokenManagerInterface $csrfTokenManager,
+        UserPasswordEncoderInterface $passwordEncoder
+    ) {
         $this->entityManager = $entityManager;
         $this->urlGenerator = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;
@@ -145,7 +150,7 @@ class WebAuthenticator extends AbstractGuardAuthenticator implements PasswordAut
      * Vérifie le token CSRF, cherche l'utilisateur en base de donnée
      * et retourne l'utilisateur
      *
-     * @param $credentials                        informations de connection
+     * @param array                 $credentials  informations de connection
      * @param UserProviderInterface $userProvider ne sert à rien ?
      *
      * @return UserInterface
@@ -169,8 +174,8 @@ class WebAuthenticator extends AbstractGuardAuthenticator implements PasswordAut
     /**
      * Vérifie le mot de passe
      *
-     * @param $credentials        informations de connection
-     * @param UserInterface $user Utilisateur avec mot de passe etc
+     * @param array         $credentials informations de connection
+     * @param UserInterface $user        Utilisateur avec mot de passe etc
      *
      * @return bool
      */
@@ -194,9 +199,9 @@ class WebAuthenticator extends AbstractGuardAuthenticator implements PasswordAut
     /**
      * Redirection après succes d'authentification
      *
-     * @param Request $request      objet Request
-     * @param TokenInterface $token jeton de sécurité
-     * @param $providerKey          va savoir ?
+     * @param Request        $request     objet Request
+     * @param TokenInterface $token       jeton de sécurité
+     * @param string         $providerKey va savoir ?
      *
      * @return RedirectResponse
      */

@@ -53,8 +53,12 @@ class SecurityController extends AbstractController
      *
      * @return Response
      */
-    public function registration(string $role, Request $request, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $userPasswordEncoder): Response
-    {
+    public function registration(
+        string $role,
+        Request $request,
+        EntityManagerInterface $entityManager,
+        UserPasswordEncoderInterface $userPasswordEncoder
+    ): Response {
         $user = Producer::ROLE === $role ? new Producer() : new Customer();
         $user->setId(Uuid::v4());
         $form = $this->createForm(RegistrationType::class, $user)
