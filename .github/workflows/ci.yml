@@ -47,4 +47,4 @@ jobs:
       - name: Run functional tests
         run: GOOGLE_MAP_API_KEY=${{ secrets.GOOGLE_MAP_API_KEY }} vendor/bin/simple-phpunit
       - name: Analyze coding style
-        run: phpcs
+        run: /usr/bin/phpcs
