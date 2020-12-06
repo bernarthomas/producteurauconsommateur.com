@@ -80,13 +80,11 @@
     },
     "scripts": {
         "prepare-test": [
-            "bin/console d:d:d --if-exists --force --env=test",
             "bin/console d:d:c --env=test",
             "bin/console d:s:u -f --env=test",
             "bin/console d:f:l -n --env=test"
         ],
         "prepare-dev": [
-            "bin/console d:d:d --if-exists --force --env=dev",
             "bin/console d:d:c --env=dev",
             "bin/console d:s:u -f --env=dev",
             "bin/console d:f:l -n --env=dev"
