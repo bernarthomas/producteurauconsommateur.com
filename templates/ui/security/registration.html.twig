@@ -3,8 +3,22 @@
 {% block title %}Hello SecurityController!{% endblock %}
 
 {% block body %}
-    {{ form_start(form) }}
-    {{ form_rest(form) }}
-    <button>Je m'inscris</button>
-    {{ form_end(form) }}
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-6 col-xs-4">
+            {{ form_start(form) }}
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="mb-0">Inscription</h1>
+                </div>
+            </div>
+            <div class="card-body">
+                {{ form_rest(form) }}
+            </div>
+            <div class="card-footer">
+                <a href="{{ path("security_login") }}" class="btn btn-block btn-primary">Je me connecte</a>
+                <button class="btn btn-block btn-primary">Je m'inscris'</button>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
 {% endblock %}
