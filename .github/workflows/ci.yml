@@ -54,11 +54,6 @@ jobs:
           bin/console doctrine:database:create
           bin/console doctrine:schema:update --force
           bin/console doctrine:fixtures:load -n
-        env:
-          # The hostname used to communicate with the PostgreSQL service container
-          POSTGRES_HOST: postgres
-          # The default PostgreSQL port
-          POSTGRES_PORT: 5432
       - name: Run functional tests
         run: GOOGLE_MAP_API_KEY=${{ secrets.GOOGLE_MAP_API_KEY }} php vendor/bin/simple-phpunit
       - name: Analyze coding style
