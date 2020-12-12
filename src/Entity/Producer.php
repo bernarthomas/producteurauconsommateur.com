@@ -31,6 +31,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @license    http://www.gnu.org/copyleft/gpl.html GNU General Public License
  * @link       http://producteurauconsommateur.com/
  * @ORM\Entity
+ * @ORM\EntityListeners({"App\EntityListener\ProducerListener"})
  */
 class Producer extends User
 {
@@ -42,6 +43,12 @@ class Producer extends User
     public const ROLE = 'producer';
 
     /**
+     * @var Farm
+     * @ORM\OneToOne(targetEntity="Farm", cascade="persist", inversedBy="producer")
+     */
+    private $farm;
+
+    /**
      * Getter role
      *
      * @return string[]
@@ -49,5 +56,29 @@ class Producer extends User
     public function getRoles(): array
     {
         return ['ROLE_PRODUCER'];
+    }
+
+    /**
+     * Getter Farm
+     *
+     * @return Farm
+     */
+    public function getFarm(): Farm
+    {
+        return $this->farm;
+    }
+
+    /**
+     * Setter FarmNom de la ferme
+     *
+     * @param Farm $farm Ferme du producteur
+     *
+     * @return Producer
+     */
+    public function setFarm(Farm $farm): Producer
+    {
+        $this->farm = $farm;
+
+        return $this;
     }
 }
